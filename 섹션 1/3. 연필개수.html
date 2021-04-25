@@ -1,0 +1,121 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>연필개수</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            연필개수
+        </h1>
+        <span>
+            연필 1 다스는 12자루 입니다. 학생 1인당 연필을 1 자루씩 나누어 준다고 할 때 N명의 학생 수를 입력하면 필요한 연필의 다스 수를 계산하는 프로그램을 작성하시오
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+            첫 번째 줄에 100이하의 자연수 N이 입력된다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+            첫 번째 줄에 필요한 다스 수를 입력한다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+            25
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+            3
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+        </h1>
+        <span>
+
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(n){
+        return Math.floor(n / 12) + 1;
+    }
+
+    console.log(solution(23));
+
+    console.log(solution(25));
+
+    console.log(solution(178));
+
+</script>
+</body>
+</html>

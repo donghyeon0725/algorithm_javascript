@@ -1,0 +1,157 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            일곱난쟁이
+        </h1>
+        <span>
+            대문자로 이루어진 영어단어가 입력되면 단어에 포함된 ‘A'를 모두 ’#‘으로 바꾸어 출력하는
+프로그램을 작성하세요.
+
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+            첫 번째 줄에 문자열이 입력된다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+            첫 번째 줄에 바뀐 단어를 출력한다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+            BANANA
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+            B#N#N#
+        </span>
+    </div>
+
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+            1.  정규식 변환 => n.replace(/A/, '#'); 처음 하나의 A만 #으로 변경하겠다는 의미
+            2. 전체를 변경하고 싶으면, g 옵션을 붙여야함 =>  n.replace(/A/g, '#');
+            3. split 후 다시 join하는 방법이 있음
+        </h1>
+        <span>
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(n){
+
+        let result = '';
+
+        for (let x of n) {
+            if (x === 'A') {
+                result += '#';
+            } else {
+                result += x;
+            }
+        }
+
+        return result;
+    }
+
+    function solution_1(n){
+        let result = n;
+        result = n.replace(/A/g, '#');
+
+        return result;
+    }
+
+    function solution_2(n){
+        let arr = n.split('');
+
+        for (let i=0; i<arr.length; i++) {
+            if (arr[i] == 'A') arr[i] = '#';
+        }
+
+        return arr.join('');
+    }
+
+
+    let word = 'BANANA';
+
+    console.log(solution(word));
+    console.log(solution_1(word));
+    console.log(solution_2(word));
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            10부제
+        </h1>
+        <span>
+            서울시는 6월 1일부터 교통 혼잡을 막기 위해서 자동차 10부제를 시행한다. 자동차 10부제는 자동차 번호의 일의 자리 숫자와 날짜의 일의자리 숫자가 일치하면
+            해당 자동차의 운행을 금지하는 것이다. 예를 들어, 자동차 번호의 일의 자리 숫자가 7이면 7일, 17일, 27일 운행하지 못한다. 또한, 자동차 번호의 일의 자리 숫자가
+            0이면 10일, 20일, 30일에 운행하지 못한다.
+
+            여러분들은 일일 경찰관이 되어 10부제를 위반하는 자동차의 대수를 세는 봉사활동을 하려고 한다. 날짜의 일의 자리 숫자가 주어지고 7대의 자동차 번호의 끝
+            두 자리 수가 주어졌을 때 위반하는 자동차의 대수를 출력하는 프로그램을 작성하시오
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+            첫 줄에는 날짜의 일의 자리 숫자가 주어지고 두 번째 줄에는 7대의 자동차 번호의 끝 두자리 숫자가 주어진다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+            주어진 날짜와 자동차의 일의 자리 숫자를 보고 10부제를 위반하는 차량의 대수를 출력합니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+            3
+            25 23 11 47 53 17 33
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+            3
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 2
+        </h1>
+        <span>
+            0
+            12 20 54 30 87 91 30
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 2
+        </h1>
+        <span>
+            3
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+            1. 나머지 연산자를 사용해 10으로 연산하면, 끝자리 수를 구해낼 수 있다.
+            2. filter 함수를 쓰면, 조건에 해당하는 값을 추려낼 수 있다.
+        </h1>
+        <span>
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(n, d){
+        let arr = n.filter( a => a % 10 == d );
+
+        return arr.length;
+    }
+
+
+
+
+    let arr_1 = [25,23,11,47,53,17,33];
+    let arr_2 = [12,20,54,30,87,91,30];
+    let date_1 = 3;
+    let date_2 = 0;
+
+    console.log(solution(arr_1, date_1));
+
+    console.log(solution(arr_2, date_2));
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            문자 찾기
+        </h1>
+        <span>
+            한 개의 문자열을 입력받고, 특정 문자를 입력받아 해당 특정문자가 입력받은 문자열에 몇 개
+존재하는지 알아내는 프로그램을 작성하세요.
+문자열의 길이는 100을 넘지 않습니다.
+
+
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+            첫 줄에 문자열이 주어지고, 두 번째 줄에 문자가 주어진다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+            첫 줄에 문자열이 주어지고, 두 번째 줄에 문자가 주어진다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+            COMPUTERPROGRAMMING
+            R
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+            3
+        </span>
+    </div>
+
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+            1.  문자를 A라고 하면 A로 문자열을 split 했을 때, 덩어리 개수의 -1개가 정답이다.
+        </h1>
+        <span>
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(n, l){
+        return n.split(l).length - 1;
+    }
+
+
+    let word = 'COMPUTERPROGRAMMING';
+
+    console.log(solution(word, 'R'));
+
+
+
+</script>
+</body>
+</html>

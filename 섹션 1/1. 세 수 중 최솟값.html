@@ -1,0 +1,114 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>세 수 중 최솟값</title>
+</head>
+<style>
+.container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.pb-1 {
+    padding-bottom: 3vh;
+}
+
+.title {
+    width: 100vw;
+    text-align: center;
+}
+.title h1{
+    font-size: 32px;
+}
+
+.title span{
+    font-size: 24px;
+}
+
+.description {
+    width: 100vw;
+    text-align: center;
+}
+
+.description h1 {
+    font-size: 20px;
+}
+
+.description span {
+    font-size: 16px;
+}
+
+.point::before {
+    content: "*";
+
+}
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            세 수 중 최소값
+        </h1>
+        <span>
+            100 이하의 자연수 A, B, C를 입력받아 세 수 중 가장 작은 값을 출력하는 프로그램을 작성하세요. (정렬을 사용하면 안됩니다.)
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+            첫 번째 줄에 100이하의 세 자연수가 입력된다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+            첫 번째 줄에 가장 작은 수를 출력한다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+            6 5 11
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+            5
+        </span>
+    </div>
+
+</div>
+
+
+<script>
+    function solution(a, b, c){
+        // 가장 작은 값을 a에 담음
+        if (a > b) a = b;
+        if (a > c) a = c;
+
+        return a;
+    }
+
+    console.log(solution(2, 5, 1));
+
+    console.log(solution(6, 5, 11));
+</script>
+</body>
+</html>
