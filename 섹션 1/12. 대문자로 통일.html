@@ -1,0 +1,141 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            대문자로 통일
+        </h1>
+        <span>
+대문자와 소문자가 같이 존재하는 문자열을 입력받아 대문자로 모두 통일하여 문자열을 출력
+하는 프로그램을 작성하세요
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+첫 줄에 문자열이 입력된다. 문자열의 길이는 100을 넘지 않습니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+첫 줄에 문자열이 입력된다. 문자열의 길이는 100을 넘지 않습니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+ItisTimeToStudy
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+ItisTimeToStudy
+        </span>
+    </div>
+
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+        </h1>
+        <span>
+            아스키 코드를 str로 변환하는 메소드는 String.fromCharCode(숫자)이다.
+        </span>
+    </div>
+</div>
+
+
+<script>
+    // 가장 쉽게 생각하는 고전 적인 방법
+    function solution(s){
+        let n = s.toUpperCase();
+        return n;
+    }
+
+    // 아스키 코드를 이용하는 방법
+    function solution_1(s){
+        let answer = '';
+
+        for (let x of s) {
+            let asci = x.charCodeAt();
+
+            if (asci >= 97 && asci <= 122) {
+                answer += String.fromCharCode(asci -32);
+            } else {
+                answer += String.fromCharCode(asci);;
+            }
+
+        }
+        return answer;
+    }
+
+
+    let str = 'ItisTimeToStudy';
+
+    console.log(solution(str));
+    console.log(solution_1(str));
+</script>
+</body>
+</html>

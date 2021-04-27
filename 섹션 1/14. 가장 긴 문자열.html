@@ -1,0 +1,140 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            대문자로 통일
+        </h1>
+        <span>
+N개의 문자열이 입력되면 그 중 가장 긴 문자열을 출력하는 프로그램을 작성하세요.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+첫 줄에 자연수 N이 주어진다.(3<=N<=30)
+두 번째 줄부터 N개의 문자열이 주어진다. 문자열의 길이는 100을 넘지 않습니다.
+각 문자열의 길이는 서로 다릅니다
+
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+첫 줄에 가장 긴 문자열을 출력한다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+5
+teacher
+time
+student
+beautiful
+good
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+beautiful
+        </span>
+    </div>
+
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+        </h1>
+        <span>
+
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(s){
+        let result = '';
+
+        for (let x of s) {
+            if (x.length > result.length) {
+                result = x;
+            }
+        }
+
+        return result;
+
+    }
+
+
+    let arr = ['teacher','time','student','beautiful','good'];
+
+
+    console.log(solution(arr));
+
+
+</script>
+</body>
+</html>

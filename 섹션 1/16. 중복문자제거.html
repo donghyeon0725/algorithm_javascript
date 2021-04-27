@@ -1,0 +1,152 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<div class="container">
+    <div class="title pb-1">
+        <h1>
+            중복문자제거
+        </h1>
+        <span>
+소문자로 된 한개의 문자열이 입력되면 중복된 문자를 제거하고 출력하는 프로그램을 작성하
+세요.
+제거된 문자열의 각 문자는 원래 문자열의 순서를 유지합니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력설명
+        </h1>
+        <span>
+첫 줄에 문자열이 입력됩니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력설명
+        </h1>
+        <span>
+첫 줄에 중복문자가 제거된 문자열을 출력합니다.
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            입력예제 1
+        </h1>
+        <span>
+ksekkset
+        </span>
+    </div>
+
+    <div class="description pb-1">
+        <h1 class="point">
+            출력예제 1
+        </h1>
+        <span>
+kset
+        </span>
+    </div>
+
+
+    <div class="description pb-1">
+        <h1 class="point">
+            Tip
+
+            indexOf 라는 메소드는 처음으로 발견하는 문자가 있을 경우 해당 문자 하나만 return 하고 없으면 -1을 리턴한다.
+        </h1>
+        <span>
+
+        </span>
+    </div>
+</div>
+
+
+<script>
+    function solution(s){
+        let arr = [];
+
+        for (let x of s) {
+            if (!arr.includes(x)) {
+                arr.push(x);
+            }
+        }
+
+        return arr.join('');
+
+    }
+
+
+    function solution_1(s) {
+        let answer = '';
+
+        for (let i = 0; i <= s.length; i++ ) {
+            // 처음 찾은 인덱스가 현재 인덱스와 같으면
+            if (s.indexOf(s[i])===i) {
+                answer += s[i];
+            }
+        }
+
+        return answer;
+    }
+
+    let str = 'ksekkset';
+
+
+    console.log(solution(str));
+
+
+    console.log(solution_1(str));
+
+
+</script>
+</body>
+</html>
