@@ -1,0 +1,111 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+
+앞에서 읽을 때나 뒤에서 읽을 때나 같은 문자열을 팰린드롬이라고 합니다.
+문자열이 입력되면 해당 문자열이 팰린드롬이면 "YES", 아니면 “NO"를 출력하는 프로그램을
+작성하세요.
+단 회문을 검사할 때 알파벳만 가지고 회문을 검사하며, 대소문자를 구분하지 않습니다.
+알파벳 이외의 문자들의 무시합니다.
+
+
+▣ 입력설명
+첫 줄에 정수 길이 100을 넘지 않는 공백이 없는 문자열이 주어집니다.
+
+▣ 출력설명
+첫 번째 줄에 팰린드롬인지의 결과를 YES 또는 NO로 출력합니다.
+
+▣ 입력예제 1
+found7, time: study; Yduts; emit, 7Dnuof
+
+▣ 출력예제 1
+YES
+
+
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+        정규식 변환을 부정하려면 문자 '^'을 입력하면 된다.
+    </span>
+</div>
+
+<script>
+    // 재귀 함수로 푸는 방법
+    function solution(str, n){
+        if (str.length - n < 0) {
+            return true;
+        }
+
+        if (str.charAt(n).toLowerCase() === str.charAt(str.length - (n+1)).toLowerCase()) {
+            return solution(str, n+1);
+        } else {
+            return false;
+        }
+    }
+
+
+    let str = 'found7, time: study; Yduts; emit, 7Dnuof';
+
+    // 위 문장을 소문자로 변환 후, 소문자에 해당하지 않는 것만 '' 으로 치환해버리면 끝난다.
+    let temp = str.toLowerCase().replace(/[^a-z]/g, '');
+
+
+    console.log(solution(temp, 0))
+
+
+
+</script>
+</body>
+</html>

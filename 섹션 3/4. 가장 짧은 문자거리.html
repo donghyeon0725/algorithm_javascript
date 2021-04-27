@@ -1,0 +1,174 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+
+한 개의 문자열 s와 문자 t가 주어지면 문자열 s의 각 문자가 문자 t와 떨어진 최소거리를 출
+력하는 프로그램을 작성하세요.
+
+
+▣ 입력설명
+첫 번째 줄에 문자열 s와 문자 t가 주어진다. 문자열과 문자는 소문자로만 주어집니다.
+문자열의 길이는 100을 넘지 않는다.
+
+▣ 출력설명
+첫 번째 줄에 각 문자열 s의 각 문자가 문자 t와 떨어진 거리를 순서대로 출력한다.
+
+▣ 입력예제 1
+teachermode e
+
+▣ 출력예제 1
+1 0 1 2 1 0 1 2 2 1 0
+
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+        왼쪽과 오른쪽으로 한번씩만 탐색하면, 시간복잡도가 n 으로 줄어듭니다.
+
+        왼쪽에서 한번씩 찾고 오른쪽 부터 찾은 값을 비교하는데, 오른쪽 부터 찾은 값은 한번 뒤집어야 한다는 사실을 잊으면 안 됩니다.
+
+    </span>
+</div>
+
+<script>
+    // 재귀 함수로 푸는 방법
+    function solution(str, t){
+
+        let left_search = [];
+        let right_search = [];
+        let result = [];
+
+        let distance = 0;
+
+
+        for (let x of str) {
+            if (x == t) {
+                distance = 0;
+                left_search.push(distance);
+            } else {
+                distance++;
+                left_search.push(distance);
+            }
+        }
+
+        // 뒤집어 찾기
+        str = str.split('').reverse().join('');
+        for (let x of str) {
+            if (x == t) {
+                distance = 0;
+                right_search.push(distance);
+            } else {
+                distance++;
+                right_search.push(distance);
+            }
+        }
+        // 오른쪽 부터 찾은 값을 한번 뒤집어야함
+        right_search = right_search.reverse();
+
+        for (let i=0; i<right_search.length; i++) {
+            result.push(Math.min(left_search[i], right_search[i]));
+        }
+
+        return result.join(' ');
+    }
+
+    // 좌우 값중 작은 값을 찾아감
+    function solution_1(str, t) {
+        let left = 0;
+        let right = 0;
+
+        let result = [];
+
+
+        for (let i=0; i<str.length; i++) {
+
+            if (str[i] == t) {
+                left = 0;
+                right = 0;
+                result.push(0);
+            } else {
+                left++;
+                right--;
+
+                // right가 0보다 작으면 현재 거리로 부터 가장 가까운 t를 찾는다.
+                if (right < 0) {
+                    for (let j=i+1; j<str.length; j++) {
+                        if (str[j] == t) {
+                            right = j - i;
+                            break;
+                        }
+                    }
+                }
+
+                result.push(Math.min(left, right));
+            }
+        }
+
+        return result.join(' ');
+    }
+
+    let str = 'teachermode';
+    let t = 'e';
+
+
+
+    console.log(solution(str, t))
+
+    console.log(solution_1(str, t))
+
+
+</script>
+</body>
+</html>
+

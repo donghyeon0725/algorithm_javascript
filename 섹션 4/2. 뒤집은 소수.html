@@ -1,0 +1,169 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+
+N개의 자연수가 입력되면 각 자연수를 뒤집은 후 그 뒤집은 수가 소수이면 그 소수를 출력하
+는 프로그램을 작성하세요. 예를 들어 32를 뒤집으면 23이고, 23은 소수이다. 그러면 23을 출
+력한다. 단 910를 뒤집으면 19로 숫자화 해야 한다. 첫 자리부터의 연속된 0은 무시한다.
+
+
+▣ 입력설명
+첫 줄에 자연수의 개수 N(3<=N<=100)이 주어지고, 그 다음 줄에 N개의 자연수가 주어진다.
+각 자연수의 크기는 100,000를 넘지 않는다.
+
+▣ 출력설명
+첫 줄에 뒤집은 소수를 출력합니다. 출력순서는 입력된 순서대로 출력합니다.
+
+▣ 입력예제 1
+9
+32 55 62 20 250 370 200 30 100
+
+▣ 출력예제 1
+23 2 73 2 3
+
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+
+
+
+
+    </span>
+</div>
+
+<script>
+    /**
+    * 오직 한번만 계산하면 되므로, 소수 값을 전역 변수로 만들어 둔다.
+    * */
+
+
+
+    function isDecimal(n) {
+        let arr = [];
+        for (let i=0; i<=n; i++) {
+            arr.push(0);
+        }
+        arr[0] = 1;
+        arr[1] = 1;
+
+
+        // 자기 자신보다 작은 값까지만 반복
+        for (let i=1; i<n; i++) {
+
+            // 0일때만 계산을 해야함
+            if (arr[i] == 0) {
+                // 숫자로 계손 계산
+                for (let j=i; j<=n; j+=i) {
+
+                    // 1이 아닌 경우만 계산
+                    if (arr[j] != 1) {
+                        arr[j] = 1;
+                    }
+                }
+            }
+
+
+        }
+
+        if (arr[n] == 0)  {
+            return true;
+        }
+
+        return false;
+    }
+
+    function getReverse(i) {
+        let target = i;
+        let arr = [];
+
+        while(target) {
+            arr.push(target % 10);
+            target = Math.floor(target/10);
+        }
+
+
+        let result = 0;
+        for (let i=0; i<arr.length; i++) {
+
+            result += Math.pow(10, arr.length-1 - i) * arr[i];
+        }
+
+        return result;
+    }
+
+    function getReverse_1(i) {
+
+        return Number(i.toString().split('').reverse().join(''));
+    }
+
+    let arr = [32, 55, 62, 20, 250, 370, 200, 30, 100];
+
+
+   for (let i=0; i<arr.length; i++){
+        let target = getReverse(arr[i]);
+
+
+        if (isDecimal(target)) {
+            console.log(target);
+        }
+    }
+
+
+
+
+</script>
+</body>
+</html>
+

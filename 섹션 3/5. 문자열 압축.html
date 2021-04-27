@@ -1,0 +1,146 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+
+알파벳 대문자로 이루어진 문자열을 입력받아 같은 문자가 연속으로 반복되는 경우 반복되는
+문자 바로 오른쪽에 반복 횟수를 표기하는 방법으로 문자열을 압축하는 프로그램을 작성하시
+오. 단 반복횟수가 1인 경우 생략합니다.
+
+
+▣ 입력설명
+첫 줄에 문자열이 주어진다. 문자열의 길이는 100을 넘지 않는다.
+
+▣ 출력설명
+첫 줄에 압축된 문자열을 출력한다.
+
+▣ 입력예제 1
+KKHSSSSSSSE
+
+▣ 출력예제 1
+K2HS7E
+
+
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+
+    </span>
+</div>
+
+<script>
+    // 재귀 함수로 푸는 방법
+    function solution(str){
+        let json = {};
+
+        for (let x of str) {
+            // 없으면
+            if (!json.hasOwnProperty(x)) {
+                json[x] = 1;
+            } else {
+                json[x] = json[x] + 1;
+            }
+        }
+
+        let arr = Object.keys(json);
+        let result = '';
+
+        for (let key of arr) {
+            result += key + json[key];
+        }
+
+        return result;
+    }
+
+    // 배열로도 풀수 있다.
+    // 각각의 인덱스를 순서대로 A ~ Z라고 한다면 26개의 공간이 필요하다. 아스키코드로 65 ~ 90 이므로
+    function solution_1(str) {
+        let arr = [];
+        let asc_of_A = 65;
+
+        for (let i=0; i<26; i++) {
+            arr.push(0);
+        }
+
+        for (let x of str) {
+            arr[x.charCodeAt() - asc_of_A] += 1;
+        }
+
+
+        let result = '';
+
+        for (let asc = asc_of_A; asc < asc_of_A + arr.length; asc++) {
+
+            if (arr[asc - asc_of_A] != 0) {
+                result += String.fromCharCode(asc) + arr[asc - asc_of_A];
+            }
+        }
+
+        return result;
+    }
+
+
+    let str = 'KKHSSSSSSSE';
+
+
+
+    console.log(solution(str))
+
+    console.log(solution_1(str))
+
+
+
+</script>
+</body>
+</html>
