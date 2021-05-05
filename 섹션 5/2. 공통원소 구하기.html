@@ -1,0 +1,121 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+A, B 두 개의 집합이 주어지면 두 집합의 공통 원소를 추출하여 오름차순으로 출력하는 프로
+그램을 작성하세요.
+
+
+▣ 입력설명
+첫 번째 줄에 집합 A의 크기 N(1<=N<=30,000)이 주어집니다.
+두 번째 줄에 N개의 원소가 주어집니다. 원소가 중복되어 주어지지 않습니다.
+세 번째 줄에 집합 B의 크기 M(1<=M<=30,000)이 주어집니다.
+네 번째 줄에 M개의 원소가 주어집니다. 원소가 중복되어 주어지지 않습니다.
+각 집합의 원소는 1,000,000,000이하의 자연수입니다.
+
+▣ 출력설명
+두 집합의 공통원소를 오름차순 정렬하여 출력합니다.
+
+▣ 입력예제 1
+5
+1 3 9 5 2
+5
+3 2 5 7 8
+
+▣ 출력예제 1
+2 3 5
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+        단순히 합친 뒤 정렬하기에는 시간복잡도가 매우 크기 때문에, 정렬된 두 집단을 합치는 것이 빠르다 => 병합정렬의 원리
+    </span>
+</div>
+
+<script>
+    function solution(f, l) {
+        f.sort((a,b)=>(a-b));
+        l.sort((a,b)=>(a-b));
+
+        let aa = 0, bb = 0;
+
+        let result = [];
+
+        while (aa < a.length && bb < b.length) {
+
+            if (f[aa] < l[bb]) {
+                aa++;
+            } else if (f[aa] > l[bb]) {
+                bb++;
+            } else {
+                result.push(f[aa]);
+                aa++;
+                bb++;
+            }
+        }
+
+
+        return result.sort((a,b)=>a-b);
+    }
+
+
+    let a = [1,3,9,5,2];
+    let b = [3,2,5,7,8];
+
+    console.log(solution(a, b))
+
+
+</script>
+</body>
+</html>
+
