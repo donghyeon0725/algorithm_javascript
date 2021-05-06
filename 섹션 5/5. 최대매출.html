@@ -1,0 +1,120 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+    .title h1{
+        font-size: 32px;
+    }
+
+    .title span{
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+
+현수의 아빠는 제과점을 운영합니다. 현수 아빠는 현수에게 N일 동안의 매출기록을 주고 연속
+된 K일 동안의 최대 매출액이 얼마인지 구하라고 했습니다.
+만약 N=10이고 10일 간의 매출기록이 아래와 같습니다. 이때 K=3이면
+12 15 11 20 25 10 20 19 13 15
+연속된 3일간의 최대 매출액은 11+20+25=56만원입니다.
+여러분이 현수를 도와주세요.
+
+
+▣ 입력설명
+첫 줄에 N(5<=N<=100,000)과 K(2<=K<=N)가 주어집니다.
+두 번째 줄에 N개의 숫자열이 주어집니다. 각 숫자는 500이하의 음이 아닌 정수입니다.
+
+▣ 출력설명
+첫 줄에 최대 매출액을 출력합니다.
+
+▣ 입력예제 1
+10 3
+12 15 11 20 25 10 20 19 13 15
+
+▣ 출력예제 1
+56
+
+</pre>
+
+<div class="description pb-1">
+    <h1 class="point">
+        Tip
+    </h1>
+    <span>
+        두가지 방법으로 최적화를 할 수 있다.
+
+        1. 기존에 구했던 더하기 값에서 맨 처음 더한 값을 뺀 후 다음값을 더하는 방법
+        2. 부분합을 구해 놓은 다음에 꺼내 쓸때 다시 계산하는 방법 => K값이 자주 변한다면! 고려해볼 법한 최적화 방법이다.
+    </span>
+</div>
+
+<script>
+
+    let sum = [];
+
+    function solution(k, arr) {
+        let value = 0;
+
+        for (let i=0; i<k; i++) {
+            value += arr[i];
+        }
+
+        sum.push(value);
+
+        for (let i=k; i<arr.length; i++) {
+            value += ( arr[i] - arr[i-k] );
+            sum.push(value);
+        }
+
+        return Math.max(...sum);
+    }
+
+
+    let arr = [12,15,11,20,25,10,20,19,13,15];
+
+    console.log(solution(3, arr));
+
+
+</script>
+</body>
+</html>
+
+
