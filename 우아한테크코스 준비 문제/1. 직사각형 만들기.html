@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<pre>
+
+문제 설명
+직사각형을 만드는 데 필요한 4개의 점 중 3개의 좌표가 주어질 때, 나머지 한 점의 좌표를 구하려고 합니다. 점 3개의 좌표가 들어있는 배열 v가 매개변수로 주어질 때, 직사각형을 만드는 데 필요한 나머지 한 점의 좌표를 return 하도록 solution 함수를 완성해주세요. 단, 직사각형의 각 변은 x축, y축에 평행하며, 반드시 직사각형을 만들 수 있는 경우만 입력으로 주어집니다.
+
+제한사항
+v는 세 점의 좌표가 들어있는 2차원 배열입니다.
+v의 각 원소는 점의 좌표를 나타내며, 좌표는 [x축 좌표, y축 좌표] 순으로 주어집니다.
+좌표값은 1 이상 10억 이하의 자연수입니다.
+직사각형을 만드는 데 필요한 나머지 한 점의 좌표를 [x축 좌표, y축 좌표] 순으로 담아 return 해주세요.
+
+입출력 예
+v	                        result
+[[1, 4], [3, 4], [3, 10]]	[1, 10]
+[[1, 1], [2, 2], [1, 2]]	[2, 1]
+
+입출력 예 설명
+입출력 예 #1
+세 점이 [1, 4], [3, 4], [3, 10] 위치에 있을 때, [1, 10]에 점이 위치하면 직사각형이 됩니다.
+
+입출력 예 #2
+세 점이 [1, 1], [2, 2], [1, 2] 위치에 있을 때, [2, 1]에 점이 위치하면 직사각형이 됩니다.
+
+
+</pre>
+<script>
+    function solution(v) {
+        var answer = [
+
+        ];
+
+        let map_x = new Map();
+        let map_y = new Map();
+
+        for (let [x, y] of v) {
+
+            if (map_x.has(x)) map_x.set(x, map_x.get(x) -1);
+            else map_x.set(x, 1);
+
+            if (map_y.has(y)) map_y.set(y, map_y.get(y) -1);
+            else map_y.set(y, 1);
+
+        }
+
+        let x, y;
+
+        for (let t of map_x.keys()) {
+
+            if (map_x.get(t) == 1) {
+                x = t;
+            }
+        }
+
+        for (let t of map_y.keys()) {
+            if (map_y.get(t) == 1) {
+                y = t;
+            }
+        }
+
+        answer.push(x)
+        answer.push(y)
+
+        return answer;
+    }
+
+    let arr = [[1, 4], [3, 4], [3, 10]];
+    let arr_1 = [[1, 1], [2, 2], [1, 2]];
+
+
+    console.log(solution(arr));
+    console.log(solution(arr_1));
+
+</script>
+</body>
+</html>

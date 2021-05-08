@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="https://programmers.co.kr/learn/courses/30/lessons/42579">문제보기</a>
+<script>
+    let genres = ["classic", "pop", "classic", "classic", "pop"];
+    let plays = [500, 600, 150, 800, 2500];
+
+
+    function solution(genres, plays) {
+        let map = new Map();
+
+        for (let i=0; i<genres.length; i++) {
+            map.set(genres[i], ( map.get(genres[i]) | 0 ) + plays[i]);
+        }
+
+        // 장르별 합 모음
+        let arr = new Array();
+
+        // 필요한 정보를 묶음
+        for (let i=0; i<genres.length; i++) {
+            arr.push([i, plays[i], map.get(genres[i]), genres[i]]);
+        }
+
+
+        // 종류별 가산점을 다르게 줌 => 정렬 / 마지막은 내림 차순
+        arr.sort(
+            (i1, i2) => {
+                return 100000000 * (i2[2] - i1[2]) + 100000 * (i2[1] - i1[1]) + 1 * (i1[0] - i2[0]);
+            }
+        )
+
+        let idx = 0, gen = '', result = new Array();
+
+        for (let i=0; i<arr.length; i++) {
+
+            // 장르가 다르면
+            if (arr[i][3] !== gen) {
+                gen = arr[i][3];
+                result.push(arr[i][0]);
+                idx = 1;
+            } else {
+                if (idx > 1) continue;
+
+                result.push(arr[i][0]);
+                idx++;
+            }
+
+        }
+
+        return result;
+    }
+
+    // 줄인
+    function solution_1(genres, plays) {
+        let sum = new Map();
+
+        // reduce 대신 forEach를 사용하면 0번 부터 전체를 돌릴 수 있다. map도 마찬가지
+        genres.forEach((t,i)=> {
+            sum[t] = sum[t] ? sum[t] + plays[i] : plays[i];
+        });
+
+        let result = {};
+        let len = 0, gen = '';
+
+         return genres
+            .map(
+                (gen, index) => {
+                    return {id : index, play: plays[index], genre: gen, sum: sum[gen] }
+                }
+            )
+            .sort(
+                (i1, i2) => {
+                    return 100000000 * (i2.sum - i1.sum) + 100000 * (i2.play - i1.play) + 1 * (i1.id - i2.id);
+                    // 직접 같은 경우를 비교해도 됨
+                }
+            )
+            .filter(
+                (t) => {
+                    if (t.genre != gen) {
+                        gen = t.genre;
+                        len = 1;
+                        return true;
+                    } else {
+                        if (len > 1) return false;
+
+                        len++;
+                        return true;
+                    }
+                }
+            )
+            .map( (t) => t.id )
+    }
+
+
+
+
+    console.log(solution(genres, plays))
+    console.log(solution_1(genres, plays))
+
+
+</script>
+</body>
+</html>

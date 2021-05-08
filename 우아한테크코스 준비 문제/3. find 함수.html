@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+find는 이런식으로 사용합니다.
+find의 두 번째 인자로 전달해준 함수를 실행합니다.
+</pre>
+<script>
+    let test = [1, 2];
+
+    function alpha() {
+        test[0] = test[0] + 2;
+        test[1] = test[1] + 2;
+    }
+
+    console.log(test.find(a => a > 3, alpha()))
+
+    let temp = [1, 2];
+    temp['asdasd'] = 456;
+    console.log(temp)
+
+
+</script>
+</body>
+</html>

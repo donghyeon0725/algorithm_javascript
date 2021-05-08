@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="https://programmers.co.kr/learn/courses/30/lessons/42578?language=javascript">문제보기</a>
+<script>
+    let arr1 = [["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]];
+    let arr2 = [["crowmask", "face"], ["bluesunglasses", "face"], ["smoky_makeup", "face"]];
+
+
+    // 길이를 줄인 풀이
+    function solution(clothes) {
+        let map = new Map(), result = 1;
+        clothes.map( ([a,b]) => map.set(b, ( map.get(b) | 0 ) + 1) );
+        for (let x of map.keys()) result *= map.get(x) + 1;
+
+        return result - 1;
+    }
+
+    // 기존의 나의 풀이
+    function solution_1(clothes) {
+        let map = new Map();
+
+        for (let [c, s] of clothes) {
+            map.set(s, (map.get(s) | 0) + 1);
+        }
+
+        let result = 1;
+
+        // 각각 한 종류 기준으로, 하나를 골라서 입거나 아예 안입는 경우는 해당 종류의 옷 개수 + 1
+        for (let key of map.keys()) {
+            result *= (map.get(key) + 1);
+        }
+
+        // 하나도 안 입은 경우 하나만 뺌
+        result -= 1;
+
+        return result;
+    }
+
+    // reduce를 사용하는 새로운 방법
+
+    function solution_2(clothes) {
+        // reduce는 obj 를 계속 리턴하는 방법으로 기존의 변수와 상관 없이, 첫 번째 인자만 들어간, 별도의 객체 처럼 사용할 수 있음
+        // 기존 변수 내부에 들어있던 값과 상관 없는 새로운 obj 가 리턴 되었음
+        let result = Object.values(clothes.reduce((obj, t)=> {
+            obj[t[1]] = obj[t[1]] ? obj[t[1]] + 1 : 1;
+            return obj;
+        } , {}))
+
+        return result.reduce((a,b)=> a * (b+1), 1)-1;
+    }
+
+    console.log(solution(arr1))
+    console.log(solution(arr2))
+    console.log(solution_2(arr1))
+
+</script>
+</body>
+</html>
