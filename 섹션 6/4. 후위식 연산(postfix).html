@@ -1,0 +1,182 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+후위식 연산(postfix)
+
+후위연산식이 주어지면 연산한 결과를 출력하는 프로그램을 작성하세요.
+만약 3*(5+2)-9 을 후위연산식으로 표현하면 352+*9- 로 표현되며 그 결과는 12입니다.
+
+▣ 입력설명
+첫 줄에 후위연산식이 주어집니다. 연산식의 길이는 50을 넘지 않습니다.
+식은 1~9의 숫자와 +, -, *, / 연산자로만 이루어진다.
+
+▣ 출력설명
+연산한 결과를 출력합니다.
+
+▣ 입력예제 1
+352+*9-
+
+▣ 출력예제 1
+12
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+        스택에 연산식을 저장해두고 문자만 따로 빼서 계산해주면 될듯 하다.
+    </span>
+</div>
+
+<script>
+
+    let str = '352+*9-';
+    // 3*(5+2)-9
+
+
+    // 내가 처음 계산한 것
+    function solution(str) {
+        let operator = ['+', '-', '*', '/'];
+
+        let stack_str = [];
+        let stack_ope = [];
+
+        let before = '';
+
+        let result = '';
+
+        for (let i=0; i<str.length; i++) {
+            let x = str.charAt(i);
+
+            // 이전이 연산자였다가 문자로 바뀐경우
+            if (operator.includes(before) && !operator.includes(x)) {
+
+
+                // ope stack의 length가 1이 될때까지 연산을 시작
+                let t_num = Number(stack_str.pop());
+                stack_ope = stack_ope.reverse();
+
+                while (stack_ope.length > 1) {
+                    t_num = t_num + stack_ope.pop() + stack_str.pop();
+                    t_num = Number(eval(t_num));
+                }
+
+                result += stack_str.pop() + stack_ope.pop() + t_num;
+            }
+
+            if (operator.includes(x)) stack_ope.push(x);
+            else stack_str.push(x);
+
+            before = x;
+        }
+
+        // 마지막에 남은 것 계산
+        result = result + stack_ope.pop() + stack_str.pop();
+
+
+        console.log(result);
+
+        return eval(result);
+    }
+
+    // 정답
+    function solution1(s){
+        let answer;
+        let stack=[];
+        for(let x of s){
+            if(!isNaN(x)) stack.push(Number(x));
+            else{
+                let rt=stack.pop();
+                let lt=stack.pop();
+                if(x==='+') stack.push(lt+rt);
+                else if(x==='-') stack.push(lt-rt);
+                else if(x==='*') stack.push(lt*rt);
+                else if(x==='/') stack.push(lt/rt);
+            }
+        }
+        answer=stack[0];
+        return answer;
+    }
+
+    function solution2(str) {
+        let stack = [];
+
+        for (let x of str) {
+
+            if (!isNaN(x)) stack.push(Number(x));
+            else {
+                // 기호가 나온 경우
+                let right = stack.pop();
+                let left = stack.pop();
+
+                left = eval(left + x + right);
+                stack.push(left);
+            }
+        }
+
+        return stack[0];
+    }
+
+
+    console.log(solution(str));
+
+    console.log(solution1(str));
+
+    console.log(solution2(str));
+
+
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,136 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+올바른 괄호
+
+괄호가 입력되면 올바른 괄호이면 “YES", 올바르지 않으면 ”NO"를 출력합니다.
+(())() 이것은 괄호의 쌍이 올바르게 위치하는 거지만, (()()))은 올바른 괄호가 아니다.
+
+▣ 입력설명
+첫 번째 줄에 괄호 문자열이 입력됩니다. 문자열의 최대 길이는 30이다.
+
+▣ 출력설명
+첫 번째 줄에 YES, NO를 출력한다.
+
+▣ 입력예제 1
+(()(()))(()
+
+▣ 출력예제 1
+NO
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+
+    </span>
+</div>
+
+<script>
+
+    let arr = '(()(()))(()';
+    let arr1 = '(())()';
+
+    function solution(arr) {
+        let index = 0;
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr.charAt(i) == '(') {
+                index++;
+            }
+
+            if (arr.charAt(i) == ')') {
+                index--;
+            }
+
+            if (index < 0) {
+                return false;
+            }
+        }
+
+        if (index != 0) return false;
+
+        return true;
+    }
+
+    function solution1(obj) {
+        let stack = [];
+
+        for (let c of obj) {
+            if (c == '(') {
+                stack.push(c);
+            }
+
+            if (c == ')') {
+                if (stack.length < 1) return false;
+                stack.pop();
+            }
+        }
+
+        if (stack.length != 0) return false;
+
+        return true;
+    }
+
+
+    console.log(solution(arr));
+    console.log(solution(arr1));
+
+    console.log(solution1(arr));
+    console.log(solution1(arr1));
+</script>
+</body>
+</html>
+
+
