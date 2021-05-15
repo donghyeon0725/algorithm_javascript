@@ -1,0 +1,104 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+선택 정렬을 수행하세요.
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+
+    </span>
+</div>
+
+<script>
+
+    /**
+     * 선택 정렬
+     *
+     * 한바퀴를 돌아서 가장 작은 값, 또는 가장 큰 값을 찾아 두 인덱스의 자리를 변경하면서 정렬하는 방법
+     * 버블 정렬보다는 빠르다. => 값의 교체가 일어나는 회수가 덜하기 때문
+     *
+     * 시간복잡도 O(n^2)
+     * */
+    function select(arr) {
+
+        let idx = 0;
+        for (let i=0; i<arr.length-1; i++) {
+            let min = Number.MAX_SAFE_INTEGER;
+
+            for (let j=i; j<arr.length; j++) {
+
+                if (arr[j] < min) {
+                    min = arr[j];
+                    idx = j;
+                }
+
+            }
+
+            [arr[i], arr[idx]] = [arr[idx], arr[i]];
+
+        }
+        return arr;
+    }
+
+    let arr = [13,5,11,7,23,15,1,3,4,6,8];
+    console.log(select(arr));
+
+
+</script>
+</body>
+</html>
+
+

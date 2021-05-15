@@ -1,0 +1,128 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+N개의 평면상의 좌표(x, y)가 주어지면 모든 좌표를 오름차순으로 정렬하는 프로그램을 작성하
+세요. 정렬기준은 먼저 x값의 의해서 정렬하고, x값이 같을 경우 y값에 의해 정렬합니다.
+
+▣ 입력설명
+첫째 줄에 좌표의 개수인 N(3<=N<=100,000)이 주어집니다.
+두 번째 줄부터 N개의 좌표가 x, y 순으로 주어집니다. x, y값은 양수만 입력됩니다.
+
+▣ 출력설명
+N개의 좌표를 정렬하여 출력하세요.
+
+▣ 입력예제 1
+5
+2 7
+1 3
+1 2
+2 5
+3 6
+
+▣ 출력예제 1
+1 2
+1 3
+2 5
+2 7
+3 6
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+
+    </span>
+</div>
+
+<script>
+
+    let arr = [
+        [2,7],
+        [1,3],
+        [1,2],
+        [2,5],
+        [3,6]
+    ];
+
+    let arr1 = [
+        [2,7],
+        [1,3],
+        [1,2],
+        [2,5],
+        [3,6]
+    ];
+
+    /**
+     * x, y의 값이 1000보다 작다면 요긴하게 사용할 수 있는 방법
+     * */
+    function solution(arr) {
+        return arr.sort((a, b) => 1000 * (a[0] - b[0]) + (a[1] - b[1]));
+    }
+
+    /**
+     * 정석
+     * */
+    function solution1(arr) {
+        return arr.sort((a, b) => {
+            return a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1];
+        });
+    }
+
+    console.log(solution(arr));
+    console.log(solution1(arr1));
+
+
+</script>
+</body>
+</html>

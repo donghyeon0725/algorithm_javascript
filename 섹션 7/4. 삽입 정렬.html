@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+삽입 정렬을 수행하세요.
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+
+    </span>
+</div>
+
+<script>
+
+    let arr = [13,5,11,7,23,15,1,3,4,6,8];
+
+    /**
+     * 삽입 정렬
+     *
+     * 범위를 넓혀가며 계속 정렬함.
+     * 이 때 정렬할 값을 앞으로 밀면서 제자리를 찾아가게 하는 방법
+     *
+     * 시간복잡도 O(n^2)
+     * 시간 복잡도가 O(n^2) 이긴 하나, 거의 정렬 되어 있는 배열을 정렬할 때 매우 빠름
+     * */
+    function insert(arr) {
+
+        // 정렬 시작의 범위
+        for (let i=1; i<arr.length; i++) {
+            let j = i;
+            while (j > 0 && (arr[j] < arr[j-1])) {
+                [arr[j], arr[j-1]] = [arr[j-1], arr[j]];
+                j--;
+            }
+        }
+
+        return arr;
+    }
+
+
+    console.log(insert(arr));
+
+
+</script>
+</body>
+</html>
+
+
