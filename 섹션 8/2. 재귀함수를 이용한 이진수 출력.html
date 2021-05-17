@@ -1,0 +1,146 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+10진수 N이 입력되면 2진수로 변환하여 출력하는 프로그램을 작성하세요. 단 재귀함수를 이용
+해서 출력해야 합니다.
+
+
+▣ 입력설명
+첫 번째 줄에 10진수 N(1<=N<=1,000)이 주어집니다.
+
+▣ 출력설명
+첫 번째 줄에 이진수를 출력하세요.
+
+▣ 입력예제 1
+11
+
+▣ 출력예제 1
+1011
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+        123.toString(2) => 10 진수 123을 이진수로 변환
+        parseInt("7b", 16) => 16진수의 "7b"를 10진수로 변환
+    </span>
+</div>
+
+<script>
+
+    // n 은 1000 보다 작기 때문에, 10자리를 넘지 않는다. 따라서 10부터 탐색
+    function solution(n) {
+
+        function DFS(n, order) {
+            let target = Math.pow(2, order);
+
+            if (order < 0) return '';
+
+            if (target > n) {
+                return "0" + DFS(n, order - 1);
+            } else if (target <= n) {
+                n -= target;
+                return "1" + DFS(n, order - 1);
+            }
+        }
+
+        // 10번째 자리부터 탐색
+        return Number(DFS(n, 10));
+    }
+
+    /**
+     * 십진수 t를 이진수로 변환했을 때
+     * n자리의 이진수로 변환된다고 가정을 해보자
+     * 10101....(예시)
+     * 그럼 이진수는 n개의 수를 가지고 있고 2로 나눌 때 마다, 자리 수가 1씩 줄어들기 때문에 n번 2로 나누었을 때
+     * 이진수 10101... 은 0이 된다.
+     * 즉, 이말은 십진수 t를 2로 n번 나누었을 때 0이 된다는 말이다.
+     *
+     * 2^N + 2^(N-2) + 2^(N-4).. 이런식이므로,
+     * 가장 처음 2로 나누었을 때 나머지가 1이라면 첫 자리 숫자가 1인 것이다.
+     * 같은 방식으로 2로 나눈 몫을 탐색한다면 가장 마지막에는 첫 번째 자리 수를 탐색할 수 있다.
+     *
+     * 깊이 우선 탐색으로 가장 마지막에 탐색되는 것이 가장 첫 자리의 숫자가 되므로 아래와 같은 풀이가 가능한 것이다.
+     * */
+    function solution1(n){
+        function DFS(n){
+            if (n===0) return '';
+            else{
+                // 가장 마지막에 탐색 된 것이, 가장 첫 자리의 숫자이기 때문에 이렇게 붙이는 것이 맞다.
+                return DFS( parseInt(n/2) ) + String(n % 2);
+            }
+        }
+        return DFS(n);
+    }
+
+    function solution2(n) {
+        let answer = "";
+        function DFS(n){
+            if (n===0) return;
+            else {
+                DFS( parseInt(n/2) );
+                answer += String( n%2 );
+            }
+        }
+        DFS(n);
+        return answer;
+    }
+
+    let N = 11;
+    console.log(solution(N));
+    console.log(solution1(N));
+
+</script>
+</body>
+</html>
