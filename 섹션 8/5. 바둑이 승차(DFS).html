@@ -1,0 +1,156 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+철수는 그의 바둑이들을 데리고 시장에 가려고 한다. 그런데 그의 트럭은 C킬로그램 넘게 태
+울수가 없다. 철수는 C를 넘지 않으면서 그의 바둑이들을 가장 무겁게 태우고 싶다.
+N마리의 바둑이와 각 바둑이의 무게 W가 주어지면, 철수가 트럭에 태울 수 있는 가장 무거운
+무게를 구하는 프로그램을 작성하세요.
+
+
+▣ 입력설명
+첫 번째 줄에 자연수 C(1<=C<=100,000,000)와 N(1<=N<=30)이 주어집니다.
+둘째 줄부터 N마리 바둑이의 무게가 주어진다.
+
+▣ 출력설명
+첫 번째 줄에 가장 무거운 무게를 출력한다.
+
+▣ 입력예제 1
+259 5
+81
+58
+42
+33
+61
+
+▣ 출력예제 1
+242
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+    </span>
+</div>
+
+<script>
+
+    function solution(arr, capacity) {
+        let include = Array.from({length: arr.length}, () => false);
+        let result = 0;
+
+        function DFS(n) {
+
+            // 집계
+            if (n >= arr.length) {
+                let temp = 0;
+                include.forEach((v, i) => {
+                    if (v) temp += arr[i];
+                });
+
+                // result 보단 크지만, capacity는 넘지 않는 경우
+                if (result < temp && temp <= capacity) {
+                    result = temp;
+                }
+
+                return;
+            }
+
+            include[n] = true;
+            DFS(n+1);
+            include[n] = false;
+            DFS(n+1);
+        }
+
+        DFS(0);
+
+        return result;
+    }
+
+    function solution1(arr, capacity) {
+        let result = 0;
+
+        function DFS(n, sum) {
+            // 집계
+            if (n >= arr.length) {
+                // result 보단 크지만, capacity는 넘지 않는 경우
+                if (result < sum && sum <= capacity) result = sum;
+                return;
+            }
+
+
+            DFS(n+1, sum);
+            DFS(n+1, sum + arr[n]);
+        }
+
+        DFS(0, 0);
+
+        return result;
+    }
+
+
+    let arr = [
+        81,
+        58,
+        42,
+        33,
+        61
+    ];
+    let m = 259;
+
+    console.log(solution(arr, m));
+    console.log(solution1(arr, m));
+
+</script>
+</body>
+</html>
