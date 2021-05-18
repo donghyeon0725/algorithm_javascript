@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+자연수 N을 입력하면 N!값을 구하세요.
+N! = n*(n-1)*(n-2)*.....*2*1입니다.
+만약 N=5라면 5!=5*4*3*2*1=120입니다.
+
+
+▣ 입력설명
+첫째 줄에 자연수 N(3<=n<=10)이 입력됩니다.
+
+▣ 출력설명
+첫째 줄에 N팩토리얼 값을 출력합니다.
+
+▣ 입력예제 1
+5
+
+▣ 출력예제 1
+120
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+    </span>
+</div>
+
+<script>
+
+    function solution(n) {
+
+        function DFS(t) {
+            if (t <= 0) return 1;
+
+            return DFS(t-1) * t;
+        }
+
+        return DFS(n);
+    }
+
+    console.log(solution(5));
+
+</script>
+</body>
+</html>
