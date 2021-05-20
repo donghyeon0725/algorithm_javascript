@@ -1,0 +1,167 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+현수는 송아지를 잃어버렸다. 다행히 송아지에는 위치추적기가 달려 있다. 현수의 위치와 송아
+지의 위치가 수직선상의 좌표 점으로 주어지면 현수는 현재 위치에서 송아지의 위치까지 다음
+과 같은 방법으로 이동한다. 송아지는 움직이지 않고 제자리에 있다.
+현수는 스카이 콩콩을 타고 가는데 한 번의 점프로 앞으로 1, 뒤로 1, 앞으로 5를 이동할 수
+있다. 최소 몇 번의 점프로 현수가 송아지의 위치까지 갈 수 있는지 구하는 프로그램을 작성
+하세요.
+
+
+▣ 입력설명
+첫 번째 줄에 현수의 위치 S와 송아지의 위치 E가 주어진다. 직선의 좌표 점은 1부터 10,000
+까지이다.
+
+▣ 출력설명
+점프의 최소횟수를 구한다. 답은 1이상입니다.
+
+▣ 입력예제 1
+5 14
+
+▣ 출력예제 1
+3
+
+▣ 입력예제 2
+8 3
+
+▣ 출력예제 2
+5
+
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+        깊이 우선 탐색으로 탐색했다간, 14나 3을 만드는데 무한한 수의 탐색 경로가 있고 하나의 경로를 "끝까지" 찾으려고 하기 때문에
+        그 값이 최소 움직임으로 찾은 값이라는 것을 확신할 수 없다.
+        이때, 너비 우선 탐색을 하면 순서대로 탐색을 하기 때문에 비용이 가장 적게 드는 것을 탐색할 수 있다.
+
+        현재 위치를 기준으로 +1, -1, 5의 선택지가 주어진 배열을 탐색하고,
+        탐색의 인자로는 depth 를 별도로 저장해두어서 해당 값이 가장 작은 것을 탐색한다.
+    </span>
+</div>
+
+<script>
+
+
+    // 배열에, 계속 찾은 값에
+    function solution(arr, n, t) {
+        // 탐색할 것을 넣어 놓는다.
+        let queue = [];
+        // 현 위치
+        queue.push([n, 0]);
+        // 탐색한 결과를 넣는다. 합계와 깊이를 같이 넣는다. *******
+        let result = [];
+
+        while (queue.length) {
+            // 발견한 대상.
+            let [sum, depth] = queue.shift();
+
+            if (sum == t) {
+                result.push([sum, depth]);
+                break;
+            }
+
+            // 탐색 대상으로 넣어둠
+            for (let x of arr) {
+                // 부모 연산 값 + 탐색할 값, 부모의 깊이의 + 1 => 여기에 전위증감연산자, 후위증감 연산자 절대 쓰면 안됨! depth 자체의 값이 변경 되어 버리기 때문
+                queue.push([sum + x, depth+1]);
+            }
+        }
+
+        return result[0];
+    }
+
+    // 이미 탐색한 값은 두번 탐색하지 않도록 배열을 별도로 사용하는 것도 방법이다.
+    function solution1(arr, n, t) {
+        let queue = [];
+        queue.push([n, 0]);
+
+        let result = [];
+        let ch = Array.from({length: 10000}, ()=>0);
+
+        while (queue.length) {
+            let [sum, distance] = queue.shift();
+
+            if (sum == t) {
+                result.push([sum, distance]);
+                break;
+            }
+
+            for (let x of arr) {
+                if (ch[sum + x] != 0) continue;
+
+                queue.push(ch[sum + x] = [sum + x, distance+1]);
+            }
+        }
+
+        return result[0];
+    }
+
+    let arr = [
+        1, -1, 5
+    ];
+
+    console.log(solution(arr, 8, 3))
+    console.log(solution(arr, 5, 14))
+
+    console.log(solution1(arr, 8, 3))
+    console.log(solution1(arr, 5, 14))
+
+
+
+</script>
+</body>
+</html>

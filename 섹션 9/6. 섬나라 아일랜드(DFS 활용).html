@@ -1,0 +1,217 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+N*N의 섬나라 아일랜드의 지도가 격자판의 정보로 주어집니다. 각 섬은 1로 표시되어 상하좌
+우와 대각선으로 연결되어 있으며, 0은 바다입니다. 섬나라 아일랜드에 몇 개의 섬이 있는지
+구하는 프로그램을 작성하세요.
+
+1 1 0 0 0 1 0
+0 1 1 0 1 1 0
+0 1 0 0 0 0 0
+0 0 0 1 0 1 1
+1 1 0 1 1 0 0
+1 0 0 0 1 0 0
+1 0 1 0 1 0 0
+만약 위와 같다면
+
+
+▣ 입력설명
+첫 번째 줄에 자연수 N(3<=N<=20)이 주어집니다.
+두 번째 줄부터 격자판 정보가 주어진다.
+
+▣ 출력설명
+첫 번째 줄에 섬의 개수를 출력한다.
+
+▣ 입력예제 1
+7
+1 1 0 0 0 1 0
+0 1 1 0 1 1 0
+0 1 0 0 0 0 0
+0 0 0 1 0 1 1
+1 1 0 1 1 0 0
+1 0 0 0 1 0 0
+1 0 1 0 1 0 0
+
+▣ 출력예제 1
+5
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+        깊이 우선 탐색을 수행하던, 너비 우선 탐색을 수행하던 이어진 부분은 모두 탐색을 하기 때문에 몇 조각으로 이루어진 배열인지 알 수 있다.
+    </span>
+</div>
+
+<script>
+
+    // 깊이 우선 탐색으로 풀이
+    function solution(arr) {
+        let discover = Array.from(Array(arr.length), () => Array(arr.length).fill(false));
+        let island = arr.slice();
+
+        // 상 우상 우 우하 하 좌하 좌 좌상
+        let dy = [1, 1, 0, -1, -1, -1, 0, 1];
+        let dx = [0, 1, 1, 1, 0, -1, -1, -1];
+        function DFS(v) {
+
+            // 바다이면 탐색 => discover
+            if (island[v[1]][v[0]])
+                discover[v[1]][v[0]] = true;
+
+            // 8방향으로
+            for (let i=0; i<dy.length; i++) {
+                let y = v[1] + dy[i];
+                let x = v[0] + dx[i];
+
+                if (x >= arr.length || x < 0 || y >= arr.length || y < 0) {
+                    continue;
+                }
+
+                // 발견 전이면 탐색 && 섬이 아니어야 합니다.
+                if (!discover[y][x] && island[y][x]) {
+                    DFS([x, y]);
+                }
+            }
+        }
+
+
+        let count = 0;
+        for (let y=0; y<island.length; y++) {
+            for (let x=0; x<island[y].length; x++) {
+                if (!discover[y][x] && island[y][x]) {
+                    count++;
+                    DFS([x, y]);
+                }
+            }
+        }
+
+        return count;
+    }
+
+    // 너비우선 탐색으로 풀이
+    function solution1(arr) {
+        let discover = Array.from(Array(arr.length), () => Array(arr.length).fill(false));
+        let island = arr.slice();
+
+        island.forEach(v => {
+            v.unshift(0);
+            v.push(0);
+        })
+        island.unshift(Array(island.length).fill(0));
+        island.push(Array(island.length).fill(0));
+
+        let queue = [];
+
+        // 상 우상 우 우하 하 좌하 좌 좌상
+        let dy = [1, 1, 0, -1, -1, -1, 0, 1];
+        let dx = [0, 1, 1, 1, 0, -1, -1, -1];
+
+        function BFS() {
+            while (queue.length) {
+                let v = queue.shift();
+
+                // 탐색
+                if (island[v[1]][v[0]]) discover[v[1]][v[0]] = true;
+
+                // 8 방향으로 탐색할 곳을 넣어둔다.
+                for (let i=0; i<dy.length; i++) {
+                    let y = v[1] + dy[i];
+                    let x = v[0] + dx[i];
+
+                    if (x >= arr.length || x < 0 || y >= arr.length || y < 0) {
+                        continue;
+                    }
+
+                    // 발견 전이면 탐색 && 섬이 아니어야 합니다.
+                    if (!discover[y][x] && island[y][x]) {
+                        queue.push([x, y]);
+                    }
+                }
+            }
+        }
+
+
+        let count = 0;
+        for (let y=0; y<island.length; y++) {
+            for (let x=0; x<island[y].length; x++) {
+                if (!discover[y][x] && island[y][x]) {
+                    count++;
+                    queue.push([x, y]);
+                    BFS();
+                }
+            }
+        }
+
+        return count;
+    }
+
+
+    let arr = [
+        [1, 1, 0, 0, 0, 1, 0],
+        [0, 1, 1, 0, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1, 1],
+        [1, 1, 0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0],
+        [1, 0, 1, 0, 1, 0, 0]
+    ];
+    console.log(solution(arr));
+    console.log(solution1(arr));
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let leave = 4, day = 'FRI', holidays = [6, 21, 23, 27, 28];
+
+    function solution(leave, day, holidays) {
+        let result = [];
+
+        // 일 => 1, 7,8
+        // MON => 1, 공휴일은 6,7
+        // TUE => 2, .. 5,6
+        // 수 => 4,5
+        // 목 => 3,4
+        // 금 => 2,3
+        // 토 => 1,2
+
+        let set = new Set(holidays);
+        let s1, s2;
+        // 일요일이면 s1 -7, s2 -6
+        s1 = -4, s2 = -3;
+
+        for (; s1 <= 30; s1+=7) {
+            if (s1 < 1) continue;
+            set.add(s1);
+        }
+        for (; s2 <= 30; s2+=7) {
+            if (s2 < 1) continue;
+            set.add(s2);
+        }
+
+        // 1일부터 count 시작
+        for (let i=1; i<=30; i++) {
+            let holy = new Set(set);
+            let lev = leave;
+
+            let t = i;
+            // 휴가가 남지 않을때까지
+            while (lev > 0 && t < 31) {
+                if (!holy.has(t)) {
+                    holy.add(t);
+                    lev--;
+                }
+
+                t++;
+            }
+
+            // 시작일부터 연속되었는지 확인
+            let temp = 0;
+            for (let j=i; j<=30; j++) {
+                if (holy.has(j)) {
+                    temp++;
+                }
+                else break;
+            }
+            result.push(temp);
+        }
+
+        return Math.max(...result);
+    }
+
+    console.log(solution(leave, day, holidays));
+
+</script>
+</body>
+</html>

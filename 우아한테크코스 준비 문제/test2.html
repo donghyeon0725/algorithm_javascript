@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    let prices = [4, 3, 2, 1, 2, 3, 4, 3, 2, 1];
+
+    function solution(prices) {
+        let result = [], len = prices.length;
+        let isTop = false, bong = false;
+        let left = 0, right = 0;
+
+
+        for (let i=1; i<prices.length-1; i++) {
+            let target = prices[i];
+
+            if (target > prices[i+1] && target > prices[i-1]) {
+                bong = true;
+                isTop = true;
+            } else if (target < prices[i+1] && target < prices[i-1]) {
+                bong = true;
+                isTop = false;
+            } else {
+                bong = false;
+            }
+
+
+
+            // 봉 발견
+            if (bong) {
+                if (isTop) {
+                    let bong_idx = i - 1;
+                    // 왼쪽으로 탐색
+                    while (bong_idx > 0) {
+                        if (prices[bong_idx] <= prices[bong_idx-1]) break;
+
+                        bong_idx--;
+                    }
+                    left = i - bong_idx;
+
+                    bong_idx = i + 1;
+                    while (bong_idx < len - 1) {
+                        if (prices[bong_idx] <= prices[bong_idx+1]) break;
+
+                        bong_idx++;
+                    }
+                    right = bong_idx - i;
+
+                    // 0인 경우 제외
+                    if (left != 0 && right != 0) {
+                        result.push(Math.min(left, right));
+                    } else {
+                        result.push((left | right));
+                    }
+
+                } else {
+
+                    let bong_idx = i - 1;
+                    // 왼쪽 탐색
+                    while (bong_idx > 0) {
+                        if (prices[bong_idx] >= prices[bong_idx-1]) break;
+
+                        bong_idx--;
+                    }
+                    left = i - bong_idx;
+
+                    bong_idx = i + 1;
+                    while (bong_idx < len - 1) {
+                        if (prices[bong_idx] >= prices[bong_idx+1]) break;
+
+                        bong_idx++;
+                    }
+                    right = bong_idx - i;
+
+                    // 0인 경우 제외
+                    if (left != 0 && right != 0) {
+                        result.push(Math.max(-1*left, -1*right));
+                    } else {
+                        result.push((-1*left | -1*right));
+                    }
+                }
+                bong = false, left = 0, right = 0;
+            }
+        }
+
+        return result;
+    }
+
+    console.log(solution(prices));
+
+</script>
+</body>
+</html>

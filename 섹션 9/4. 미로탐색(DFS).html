@@ -1,0 +1,169 @@
+<html>
+<head>
+    <meta charSet="UTF-8">
+    <title>제목</title>
+</head>
+<style>
+    .container {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    .pb-1 {
+        padding-bottom: 3vh;
+    }
+
+    .title {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .title h1 {
+        font-size: 32px;
+    }
+
+    .title span {
+        font-size: 24px;
+    }
+
+    .description {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .description h1 {
+        font-size: 20px;
+    }
+
+    .description span {
+        font-size: 16px;
+    }
+
+    .point::before {
+        content: "*";
+
+    }
+
+</style>
+<body>
+<pre>
+7*7 격자판 미로를 탈출하는 경로의 가지수를 출력하는 프로그램을 작성하세요. 출발점은 격
+자의 (1, 1) 좌표이고, 탈출 도착점은 (7, 7)좌표이다. 격자판의 1은 벽이고, 0은 통로이다. 격
+자판의 움직임은 상하좌우로만 움직인다. 미로가 다음과 같다면
+
+<img src="./img/미로%20탐색.png" />
+위의 지도에서 출발점에서 도착점까지 갈 수 있는 방법의 수는 8가지이다.
+
+
+▣ 입력설명
+7*7 격자판의 정보가 주어집니다.
+
+▣ 출력설명
+첫 번째 줄에 경로의 가지수를 출력한다.
+
+▣ 입력예제 1
+0 0 0 0 0 0 0
+0 1 1 1 1 1 0
+0 0 0 1 0 0 0
+1 1 0 1 0 1 1
+1 1 0 0 0 0 1
+1 1 0 1 1 0 0
+1 0 0 0 0 0 0
+
+▣ 출력예제 1
+8
+
+</pre>
+
+<div className="description pb-1">
+    <h1 className="point">
+        Tip
+    </h1>
+    <span>
+        경로의 "가지수"를 찾는다면 깊이 우선 탐색으로 탐색한 곳을 "방문" 처리하면서 찾은 경로의 개수를 반환하면 되고(갈수만 있으면 되므로)
+        최단 경로를 찾는다면, "깊이 = 경로의 길이"를 함께 측정해야 하므로 너비 우선 탐색을 수행해야 한다.
+
+        보통 경로를 찾는 문제는 정점과 간선 정보를 이용해서 "어떻게 그래프화 하는가"가 많은 시간을 잡아먹는데,
+        위 그림처럼 그래프는 아니지만, 정점과 간선으로 이루어진, 그래프와 유사한 정보를 처음부터 주는 경우가 있다.
+
+        그럴때는 해당 정보를 이용해서 문제를 풀어나가면 된다.
+    </span>
+</div>
+
+<script>
+
+
+    function solution(arr) {
+        let toward = arr.length;
+        // 양쪽 끝에 벽을 치는 행위. 이것은 계산을 쉽게 하기 위해 사용하는 스킬이다. (1,1)에서 값을 시작해야 한다. (toward, toward) 도착
+        arr.forEach(v => {
+            v.unshift(1);
+            v.push(1);
+        });
+        arr.unshift(Array(arr[0].length).fill(1));
+        arr.push(Array(arr[0].length).fill(1));
+
+        // 방문 여부 탐색
+        let isInclude = Array.from(Array(arr.length), () => Array(arr.length).fill(false));
+        isInclude[1][1] = true;
+
+        // 경로
+        let path = [[1, 1]];
+        let result = [], count = 0;
+        // 상, 우, 하, 좌
+        let dx = [0, 1, 0, -1];
+        let dy = [1, 0, -1, 0];
+
+        // 0 => x방향, 1 => y방향
+        function DFS(vertex) {
+
+            if (vertex[0] == toward && vertex[1] == toward) {
+                count++;
+                result.push(path.slice());
+                return;
+            }
+
+            // 네 방향으로 경로가 있는지 탐색
+            for (let i=0; i<4; i++) {
+
+                let x = vertex[0] + dx[i], y = vertex[1] + dy[i];
+                // 방문 전 && 벽이 아니면
+                if (!isInclude[y][x] && arr[y][x] == 0) {
+
+                    isInclude[y][x] = true;
+                    path.push([x, y]);
+
+                    DFS([x, y]);
+
+                    isInclude[y][x] = false;
+                    path.pop();
+                }
+            }
+        }
+        // 1,1 부터 탐색
+        DFS([1,1]);
+
+        console.log(result);
+        return count;
+    }
+
+    let arr = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 0, 0, 1, 0, 0, 0],
+        [1, 1, 0, 1, 0, 1, 1],
+        [1, 1, 0, 0, 0, 0, 1],
+        [1, 1, 0, 1, 1, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0]
+    ];
+
+    console.log(solution(arr))
+
+
+
+</script>
+</body>
+</html>
